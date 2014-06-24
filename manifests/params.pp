@@ -91,7 +91,7 @@ class redis::params {
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
-  $template = ''
+  $template = 'redis/redis.conf.erb'
   $options = ''
   $service_autorestart = true
   $version = 'present'
