@@ -86,10 +86,8 @@ class redis::params {
   }
 
   $port = '6379'
-  $protocol = 'tcp'
-
+  $bindaddress = '127.0.0.1'
   # General Settings
-  $my_class = ''
   $source = ''
   $source_dir = ''
   $source_dir_purge = false
@@ -102,15 +100,6 @@ class redis::params {
   $disableboot = false
 
   ### General module variables that can have a site or per module default
-  $monitor = false
-  $monitor_tool = ''
-  $monitor_target = $::ipaddress
-  $firewall = false
-  $firewall_tool = ''
-  $firewall_src = '0.0.0.0/0'
-  $firewall_dst = $::ipaddress
-  $puppi = false
-  $puppi_helper = 'standard'
   $debug = false
   $audit_only = false
 

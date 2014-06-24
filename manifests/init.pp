@@ -186,6 +186,9 @@
 #   Note: This doesn't necessarily affect the service configuration file
 #   Can be defined also by the (top scope) variable $redis_port
 #
+# [*bindaddress*]
+# The ip address used to communicate with redis
+# 
 # [*protocol*]
 #   The protocol used by the the service.
 #   This is used by monitor, firewall and puppi (optional) components
@@ -244,6 +247,7 @@ class redis (
   $log_dir             = params_lookup( 'log_dir' ),
   $log_file            = params_lookup( 'log_file' ),
   $port                = params_lookup( 'port' ),
+  $bindaddress         = params_lookup( 'bindaddress' ),
   $protocol            = params_lookup( 'protocol' )
   ) inherits redis::params {
 
@@ -253,8 +257,6 @@ class redis (
   $bool_disable=any2bool($disable)
   $bool_disableboot=any2bool($disableboot)
   $bool_monitor=any2bool($monitor)
-  $bool_puppi=any2bool($puppi)
-  $bool_firewall=any2bool($firewall)
   $bool_debug=any2bool($debug)
   $bool_audit_only=any2bool($audit_only)
 
@@ -291,18 +293,6 @@ class redis (
   $manage_file = $redis::bool_absent ? {
     true    => 'absent',
     default => 'present',
-  }
-
-  if $redis::bool_absent == true or $redis::bool_disable == true or $redis::bool_disableboot == true {
-    $manage_monitor = false
-  } else {
-    $manage_monitor = true
-  }
-
-  if $redis::bool_absent == true or $redis::bool_disable == true {
-    $manage_firewall = false
-  } else {
-    $manage_firewall = true
   }
 
   $manage_audit = $redis::bool_audit_only ? {
